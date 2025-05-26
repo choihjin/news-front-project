@@ -2,6 +2,7 @@
 import { ref, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
 import axios from "axios";
+import { useSearch } from "@/composables/useSearch";
 
 import ContentBox from "@/common/ContentBox.vue";
 import StateButton from "@/common/StateButton.vue";
@@ -18,10 +19,12 @@ const relatedNews = ref([]);
 const liked = ref(false);
 const likeCount = ref(0);
 const isAnimating = ref(false);
+const isLoggedIn = ref(false);
 
 const { formatDate } = useDate();
 const route = useRoute();
 const articleId = route.params.id;
+const { updateSearchText } = useSearch();
 
 const fetchNewsDetail = async (id) => {
   try {
@@ -49,7 +52,10 @@ const fetchNewsDetail = async (id) => {
   }
 };
 
-onMounted(() => fetchNewsDetail(articleId));
+onMounted(() => {
+  isLoggedIn.value = !!localStorage.getItem("accessToken");
+  fetchNewsDetail(articleId);
+});
 
 watch(() => route.params.id, (newId) => {
   fetchNewsDetail(newId);
@@ -97,6 +103,15 @@ const toggleLike = async () => {
     console.error("❌ 좋아요 토글 실패:", err);
   }
 };
+
+const searchByKeyword = (keyword) => {
+  updateSearchText(keyword);
+  router.push({
+    path: '/news',
+    query: { search: keyword }
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
 </script>
 
 <template>
@@ -131,6 +146,8 @@ const toggleLike = async () => {
               :key="index"
               type="tag"
               size="md"
+              @click="searchByKeyword(tag)"
+              style="cursor: pointer;"
             >
               #{{ tag }}
             </StateButton>
@@ -173,7 +190,11 @@ const toggleLike = async () => {
   <NewsAssistant :articleId="articleId" />
   
   <ContentBox class="comments-section">
-    <CommentList :article-id="articleId" />
+    <div v-if="!isLoggedIn" class="login-required">
+      <p>댓글을 보려면 로그인이 필요합니다.</p>
+      <button @click="() => router.push('/login')" class="login-btn">로그인하기</button>
+    </div>
+    <CommentList v-else :article-id="articleId" />
   </ContentBox>
 </template>
 
@@ -356,5 +377,33 @@ const toggleLike = async () => {
 
 .comments-section {
   margin-top: 2rem;
+}
+
+.login-required {
+  text-align: center;
+  padding: 2rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  
+  p {
+    color: #666;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+  
+  .login-btn {
+    background: #2271b1;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    
+    &:hover {
+      background: #2a5298;
+    }
+  }
 }
 </style>

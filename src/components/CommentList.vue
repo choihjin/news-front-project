@@ -216,72 +216,43 @@ onMounted(fetchComments);
 
 <style scoped lang="scss">
 .comment-list {
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 2px solid #eee;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(34,113,177,0.06);
+  padding: 32px 24px;
+  margin-top: 32px;
 }
 
 .comment-count {
-  margin-bottom: 2rem;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1a1a1a;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  
-  &::before {
-    content: "💬";
-    font-size: 1.4rem;
-  }
-}
-
-.no-comments {
-  text-align: center;
-  color: #666;
-  padding: 3rem 0;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  border: 1px dashed #ddd;
-  font-size: 0.95rem;
-  
-  &::before {
-    content: "✏️";
-    font-size: 1.5rem;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--c-primary);
+  margin-bottom: 18px;
 }
 
 .comments-container {
-  margin-top: 1.5rem;
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
 .comment-wrapper {
-  margin-bottom: 1.5rem;
-  
-  &:last-child {
-    margin-bottom: 0;
-  }
+  margin-bottom: 8px;
+  border-bottom: 1px solid #f0f4f8;
+  padding-bottom: 18px;
 }
 
 .replies-container {
-  margin-left: 2rem;
-  margin-top: 1rem;
-  padding-left: 0.5rem;
-
-  .comment-item {
-    margin-bottom: 1rem;
-    
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
+  margin-top: 8px;
+  margin-left: 32px;
+  padding-left: 16px;
+  background: rgba(34,113,177,0.03);
+  border-radius: 0 0 12px 12px;
 }
 
 .comment-item.reply {
   margin-left: 0.2rem;
   background-color: #f8f9fa;
-  border-left: 3px solid #bbb;
 }
 </style> 
