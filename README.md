@@ -1,4 +1,4 @@
-# 📰 SSAFY NEWS - Frontend
+# 📰 SSAFIT NEWS - Frontend
 
 Vue 3 기반의 **AI 뉴스 큐레이션 플랫폼** 프론트엔드입니다.  
 사용자가 뉴스 목록을 탐색하고, 뉴스 상세 내용을 확인하며, 좋아요 및 관련 기사를 함께 확인할 수 있도록 구성되어 있습니다.
@@ -62,7 +62,7 @@ src/
 - 각 뉴스는 `NewsCard`로 렌더링
 - 반응형 디자인 적용
 
-<img src="imgs/news_list.png" height="800" alt="뉴스 목록" style="display: block;">
+<img src="imgs/news_list.png" width="800" alt="뉴스 목록" style="display: block;">
 
 ### 🧾 2. 뉴스 상세 페이지 (`NewsDetailView.vue`)
 
@@ -75,7 +75,7 @@ src/
 - 관련 기사 출력 (`ArticlePreview.vue`)
 - AI 뉴스비서 뉴비와 대화 기능
 
-<img src="imgs/news_detail.png" height="800" alt="뉴스 상세" style="display: block;">
+<img src="imgs/news_detail.png" width="800" alt="뉴스 상세" style="display: block;">
 
 ### 💬 3. 댓글 기능
 
@@ -86,7 +86,7 @@ src/
 - 무채색 기반의 깔끔한 UI, 접근성 고려
 - 키보드로도 댓글 입력 및 버튼 조작 가능
 
-<img src="imgs/comment.png" height="600" alt="댓글 기능" style="display: block;">
+<img src="imgs/comment.png" width="800" alt="댓글 기능" style="display: block;">
 
 ### 🔐 4. 인증 기능
 
@@ -119,7 +119,7 @@ src/
   - 관심 기사 모아보기
   - 빠른 재접근 기능
 
-<img src="imgs/dashboard.png" height="1000" alt="뉴스 상세" style="display: block;">
+<img src="imgs/dashboard.png" width="800" alt="뉴스 상세" style="display: block;">
 
 ### 🤖 6. AI 뉴스비서 뉴비 (`NewsAssistant.vue`)
 
@@ -146,8 +146,8 @@ src/
   - 검색어가 헤더 검색창에 자동으로 입력
   - 검색 결과 페이지로 즉시 이동
 
-<img src="imgs/suggest.png" height="807" alt="검색어 자동완성" style="display: block;">
-<img src="imgs/search.png" height="800" alt="검색 결과" style="display: block;">
+<img src="imgs/suggest.png" width="800" alt="검색어 자동완성" style="display: block;">
+<img src="imgs/search.png" width="800" alt="검색 결과" style="display: block;">
 
 ### 🧠 8. 기타 구성 요소
 
@@ -156,4 +156,4 @@ src/
 - `StateButton` / `ContentBox` 등 공통 컴포넌트
 - `ArticlePreview.vue`: 관련 뉴스 요약 카드
 
-<img src="imgs/pagenation.png" height="600" alt="페이지네이션" style="display: block;">
+<img src="imgs/pagenation.png" width="800" alt="페이지네이션" style="display: block;">
