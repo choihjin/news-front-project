@@ -97,7 +97,7 @@ watch(
         v-for="tab in tabs"
         :key="tab.id"
         type="state"
-        :is-active="activeTab === tab.value"
+        :isActive="activeTab === tab.value"
         @click="activeTab = tab.value"
       >
         {{ tab.label }}
