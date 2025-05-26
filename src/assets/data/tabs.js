@@ -1,0 +1,18 @@
+export const tabs = [
+  { id: 0, label: "전체", value: "" },
+  { id: 1, label: "AI", value: "AI" },
+  { id: 2, label: "빅데이터", value: "빅데이터" },
+  { id: 3, label: "블록체인", value: "블록체인" },
+  { id: 4, label: "사물인터넷", value: "사물인터넷" },
+  { id: 5, label: "클라우드", value: "클라우드" },
+  { id: 6, label: "로봇", value: "로봇" },
+  { id: 7, label: "자율주행", value: "자율주행" },
+  { id: 8, label: "반도체", value: "반도체" },
+  { id: 9, label: "스타트업", value: "스타트업" },
+  { id: 10, label: "핀테크", value: "핀테크" },
+  { id: 11, label: "보안", value: "보안" },
+  { id: 12, label: "메타버스", value: "메타버스" },
+  { id: 13, label: "양자컴퓨팅", value: "양자컴퓨팅" },
+  { id: 14, label: "AR/VR", value: "AR/VR" },
+  { id: 15, label: "기타", value: "기타" },
+];

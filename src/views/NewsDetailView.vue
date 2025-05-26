@@ -1,0 +1,292 @@
+<script setup>
+import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import axios from "axios";
+
+import ContentBox from "@/common/ContentBox.vue";
+import StateButton from "@/common/StateButton.vue";
+import { useDate } from "@/composables/useDate";
+import router from "@/router";
+import ArticlePreview from "@/components/ArticlePreview.vue";
+import NewsAssistant from "@/components/NewsAssistant.vue";
+import CommentList from "@/components/CommentList.vue";
+
+import leftArrow from "@/components/icon/LeftArrow.svg"; 
+
+const news = ref(null);
+const relatedNews = ref([]);
+const liked = ref(false);
+const likeCount = ref(0);
+const isAnimating = ref(false);
+
+const { formatDate } = useDate();
+const route = useRoute();
+const articleId = route.params.id;
+
+onMounted(async () => {
+  try {
+    const token = localStorage.getItem("accessToken");
+    const response = await axios.get(`http://localhost:8000/news/${articleId}/`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
+
+    news.value = response.data.data;
+    likeCount.value = news.value.article_interaction?.likes ?? 0;
+    relatedNews.value = response.data.data.related_articles?.articles || [];
+
+    if (token) {
+      try {
+        const likeRes = await axios.get(`http://localhost:8000/news/like/`, {
+          headers: { Authorization: `Bearer ${token}` },
+          params: { article_id: articleId },
+        });
+        liked.value = likeRes.data.is_liked; // true or false
+      } catch (err) {
+        liked.value = false; // 좋아요 안누른 상태
+      }
+    }
+  } catch (error) {
+    console.error("❌ 뉴스 상세 불러오기 실패:", error);
+  }
+});
+
+// ❤️ 좋아요 요청 함수
+const toggleLike = async () => {
+  const token = localStorage.getItem("accessToken");
+
+  if (!token) {
+    alert("로그인이 필요합니다.");
+    return;
+  }
+
+  try {
+    if (!liked.value) {
+      // ❤️ 좋아요 누르기
+      await axios.post(
+        "http://localhost:8000/news/like/",
+        { article_id: articleId },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      likeCount.value++;
+      liked.value = true;
+    } else {
+      // 🤍 좋아요 취소하기
+      await axios.delete(
+        "http://localhost:8000/news/like/",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          data: { article_id: articleId }, // ✅ DELETE에도 body 필요
+        }
+      );
+      likeCount.value--;
+      liked.value = false;
+    }
+
+    // 애니메이션
+    isAnimating.value = true;
+    setTimeout(() => {
+      isAnimating.value = false;
+    }, 600);
+
+  } catch (err) {
+    console.error("❌ 좋아요 토글 실패:", err);
+  }
+};
+</script>
+
+<template>
+  <button @click="() => router.back()" class="back-btn">
+    <img :src="leftArrow" alt="뒤로가기" width="24" />
+  </button>
+
+  <div v-if="news" class="news-detail">
+    <div class="article__container">
+      <ContentBox>
+        <div class="article">
+          <div class="article__header">
+            <StateButton type="state" size="sm" isActive disabled>
+              {{ news?.category }}
+            </StateButton>
+            <h2 class="article__header-title">{{ news?.title }}</h2>
+            <div class="article__header-writer">
+              <span>{{ news.writer }}</span>
+              <span> 🕒 {{ formatDate(news.write_date) }}</span>
+            </div>
+          </div>
+
+          <p class="article__content">{{ news?.content }}</p>
+
+          <div class="article__tags">
+            <StateButton
+              v-for="(tag, index) in news.keywords"
+              :key="index"
+              type="tag"
+              size="sm"
+            >
+              #{{ tag }}
+            </StateButton>
+          </div>
+
+          <div class="article__content__footer">
+            <div class="article__content__emoji">
+              <span class="emoji-btn">
+                <span v-if="liked">❤️</span>
+                <span v-else>🤍</span>
+                {{ likeCount }}
+              </span>
+              <div class="emoji-btn">
+                <span class="content__emoji-eye">👀</span>
+                {{ news?.article_interaction?.read ?? 0 }}
+              </div>
+              <a :href="news.url">📄</a>
+            </div>
+            <button class="emoji-btn" @click="toggleLike">
+              <span>{{ liked ? "❤️" : "🤍" }} 좋아요</span>
+            </button>
+            <transition name="heart-float">
+              <span v-if="isAnimating" class="floating-heart">
+                {{ liked ? "❤️" : "🤍" }}
+              </span>
+            </transition>
+          </div>
+        </div>
+      </ContentBox>
+    </div>
+
+    <ContentBox class="sidebar" v-if="relatedNews.length">
+      <h1 class="sidebar__title">📰 관련 기사</h1>
+      <div v-for="(item, index) in relatedNews" :key="item.id">
+        <ArticlePreview :to="`/news/${item.id}`" :news="item" />
+      </div>
+    </ContentBox>
+  </div>
+
+  <NewsAssistant :articleId="articleId" />
+  
+  <ContentBox class="comments-section">
+    <CommentList :article-id="articleId" />
+  </ContentBox>
+</template>
+
+<style scoped lang="scss">
+.back-btn {
+  margin-bottom: 10px;
+}
+
+.news-detail {
+  display: flex;
+  gap: 20px;
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
+
+  .article__container {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  .sidebar {
+    flex: 1;
+    &__title {
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .article {
+    font-size: 1rem;
+    padding: 20px;
+
+    &__header {
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+
+      &-title {
+        margin: 12px 0;
+        font-size: 1.6rem;
+        font-weight: bold;
+        color: #1c1c1e;
+      }
+
+      &-writer {
+        display: flex;
+        gap: 10px;
+      }
+    }
+
+    &__content {
+      margin: 20px 0;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      word-break: keep-all;
+      font-size: 1.1rem;
+      color: #333;
+      letter-spacing: -0.02em;
+
+      &__footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 30px;
+      }
+
+      &__emoji {
+        color: #888;
+        font-size: 16px;
+        display: flex;
+        gap: 30px;
+        align-items: center;
+
+        &-eye {
+          font-size: 17px;
+        }
+      }
+    }
+
+    &__tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+  }
+
+  .emoji-btn {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    color: #888;
+  }
+
+  .floating-heart {
+    position: absolute;
+    font-size: 24px;
+    color: red;
+    animation: heartFloat 0.6s ease-out forwards;
+  }
+
+  @keyframes heartFloat {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: translateY(-20px) scale(1.2);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-40px) scale(0.8);
+    }
+  }
+}
+
+.comments-section {
+  margin-top: 2rem;
+}
+</style>
