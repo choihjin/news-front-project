@@ -56,10 +56,16 @@ function handleClick() {
   cursor: pointer;
 
   &.tag {
-    background-color: #f5f5f5;
-    cursor: default;
-    border: none;
+    background: #e8eef3 !important;
+    color: #2271b1 !important;
+    border: 1.2px solid #c2c9d6 !important;
     font-weight: 600;
+    font-size: 15px !important;
+    border-radius: 999px !important;
+    padding: 6px 16px !important;
+    margin: 0 2px 2px 0;
+    box-shadow: 0 1px 2px rgba(0,60,120,0.04);
+    cursor: default;
   }
 
   &.active {

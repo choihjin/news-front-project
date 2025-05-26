@@ -3,13 +3,13 @@ import { ref, onMounted, watch } from "vue";
 import axios from "axios";
 import { useRoute, useRouter } from "vue-router";
 
-// ✅ 컴포넌트 import
+// 컴포넌트 import
 import ContentBox from "@/common/ContentBox.vue";
 import NewsCard from "@/components/NewsCard.vue";
 import PaginationButton from "@/common/PaginationButton.vue";
 import StateButton from "@/common/StateButton.vue";
 
-// ✅ 탭 목록
+// 탭 목록
 import { tabs } from "@/assets/data/tabs";
 
 const route = useRoute();
@@ -22,7 +22,7 @@ const currentPage = ref(1);
 const totalPages = ref(1);
 const searchQuery = ref("");
 
-// ✅ API 호출
+// API 호출
 const fetchNews = async () => {
   try {
     const token = localStorage.getItem("accessToken");
@@ -77,6 +77,10 @@ watch(
     searchQuery.value = newSearch || "";
   }
 );
+
+watch(currentPage, () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 </script>
 
 <template>
@@ -141,53 +145,100 @@ watch(
 
 .news__header {
   text-align: left;
-  margin-bottom: 20px;
-  padding: 0 20px;
+  margin-bottom: 24px;
+  padding: 32px 32px 18px 32px;
+  background: #f8fafc;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(0,91,234,0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
 }
 
 .news__title {
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 12px;
+  font-size: 2.1rem;
+  font-weight: 800;
+  margin-bottom: 10px;
   color: #1a1a1a;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 10px;
+  gap: 12px;
+  letter-spacing: 0.5px;
 }
 
 .news__title-icon {
-  font-size: 32px;
+  font-size: 2.3rem;
 }
 
 .news__title-text {
-  background: linear-gradient(120deg, #2c2c2c 0%, #1a1a1a 100%);
+  background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: 0.5px;
 }
 
 .news__description {
-  font-size: 16px;
-  font-weight: 400;
-  color: #666;
-  line-height: 1.6;
+  font-size: 1.08rem;
+  font-weight: 500;
+  color: #2271b1;
+  line-height: 1.7;
+  margin-top: 2px;
 }
 
 .highlight {
-  color: #1a1a1a;
-  font-weight: 600;
+  color: #005bea;
+  font-weight: 700;
 }
 
 .news__tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  padding: 12px 30px !important;
+  gap: 12px;
+  padding: 18px 32px !important;
+  background: #f8fafc;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  margin-bottom: 18px;
+  justify-content: flex-start;
+}
+
+::v-deep(.toggle-button) {
+  transition: all 0.18s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  border: 1.5px solid #e0e7ef;
+  background: #fff;
+  color: #222;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+::v-deep(.toggle-button:hover) {
+  background: #e6f0ff;
+  color: #0056b3;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+}
+
+::v-deep(.toggle-button.active) {
+  background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+  /* background: linear-gradient(90deg, #000428 0%, #004e92 100%); */
+  /* background: linear-gradient(90deg, #396afc 0%, #2948ff 100%); */
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 16px rgba(0, 91, 234, 0.15);
+  transform: scale(1.08);
+  z-index: 1;
 }
 
 .news__box {
-  padding: 30px !important;
+  padding: 32px 32px 18px 32px !important;
+  background: #f8fafc;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  margin-bottom: 18px;
+  border: none;
 }
 
 .news__box__title-container {
@@ -201,7 +252,31 @@ watch(
   right: 0;
 }
 
+.filters {
+  padding: 10px 18px;
+  border: 1.5px solid #e0e7ef;
+  border-radius: 999px;
+  background: #fff;
+  color: #2a5298;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  outline: none;
+  transition: all 0.18s cubic-bezier(0.4,0,0.2,1);
+  cursor: pointer;
+}
+.filters:focus, .filters:hover {
+  border-color: #3ec6e0;
+  background: #e6f0ff;
+  color: #005bea;
+  box-shadow: 0 4px 16px rgba(0,91,234,0.10);
+}
+
 .news__box__cards {
   margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
 }
 </style>

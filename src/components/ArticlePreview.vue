@@ -30,16 +30,17 @@ console.log(props.news);
   <component :is="linkComponent" v-bind="props.to ? { to: props.to } : {}">
     <ContentBox>
       <div class="top">
+        <StateButton type="state" size="sm" isActive disabled
+          style="background: #e0eaff; color: #084dbb; border: 1.2px solid #b3c6e0; font-weight: 700; letter-spacing: 0.5px; margin-right: 10px;"
+        >
+          {{ props.news.category }}
+        </StateButton>
         <h1>{{ props.news.title }}</h1>
       </div>
       <div class="bottom">
-        <div>
-          <StateButton type="tag" size="xs" >{{
-            props.news.category
-          }}</StateButton>
+        <div class="bottom__meta">
           {{ formatDate(new Date(props.news.write_date)) }}
         </div>
-
         <div v-if="hasInteraction" class="bottom__icons">
           <div v-if="hasInteraction">
             ❤️ {{ props.news.article_interaction?.likes }}
@@ -55,27 +56,37 @@ console.log(props.news);
 
 <style scoped lang="scss">
 .top {
-  h1 {
-    font-size: 15px;
-  }
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
+  gap: 12px;
+  margin-bottom: 8px;
+  h1 {
+    font-size: 1.08rem;
+    font-weight: 700;
+    color: #1c1c1e;
+    background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Montserrat', 'Pretendard', 'Noto Sans KR', 'Inter', Arial, sans-serif;
+    margin: 0;
+  }
 }
 .bottom {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 10px;
   justify-content: space-between;
-
+  &__meta {
+    color: #2271b1;
+    font-size: 0.97rem;
+    font-weight: 500;
+  }
   &__icons {
     display: flex;
     gap: 10px;
+    color: #2271b1;
+    font-size: 0.97rem;
+    font-weight: 500;
   }
-}
-.xs {
-  font-size: 0.7rem;
-  padding: 2px 6px;
 }
 </style>

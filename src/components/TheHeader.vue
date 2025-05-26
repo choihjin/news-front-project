@@ -106,7 +106,7 @@ onUnmounted(() => {
   <div class="header__container">
     <header>
       <router-link to="/" @click="refreshPage">
-        <span class="logo"> SSAFYNEWS </span>
+        <span class="logo"> SSAFIT NEWS </span>
       </router-link>
 
       <nav class="menus">
@@ -150,12 +150,13 @@ onUnmounted(() => {
 
 <style scoped lang="scss">
 .header__container {
-  background-color: white;
-  border-bottom: 1px solid #d4d4d4;
+  background: #f6f8fa;
+  border-bottom: 1.5px solid #c2c9d6;
+  box-shadow: 0 1.5px 8px rgba(0,60,120,0.06);
   header {
     max-width: 1280px;
     margin: 0 auto;
-    color: black;
+    color: #234e70;
     height: 80px;
     justify-content: space-between;
     align-items: center;
@@ -164,8 +165,15 @@ onUnmounted(() => {
   }
 
   .logo {
-    font-size: x-large;
+    font-size: 1.5rem;
     font-weight: 800;
+    color: #234e70;
+    letter-spacing: 1.5px;
+    background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Montserrat', 'Pretendard', 'Noto Sans KR', 'Inter', Arial, sans-serif;
+    text-transform: uppercase;
   }
 
   .menus {
@@ -182,18 +190,20 @@ onUnmounted(() => {
     margin-right: 5px;
 
     .header-search__input {
-      padding: 8px 40px 8px 16px;
-      border: 1.5px solid #e2e2e2;
+      padding: 10px 44px 10px 18px;
+      border: 1.5px solid #c2c9d6;
       border-radius: 999px;
-      font-size: 15px;
+      font-size: 1rem;
       width: 220px;
-      background: #fafbfc;
-      box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
-      transition: border 0.2s;
+      background: #f3f6fa;
+      color: #234e70;
+      box-shadow: 0 1px 4px rgba(0,60,120,0.04);
+      transition: border 0.18s, background 0.18s;
+      font-weight: 500;
     }
     .header-search__input:focus {
       outline: none;
-      border-color: #888;
+      border-color: #2a5298;
       background: #fff;
     }
     .header-search__button {
@@ -216,22 +226,25 @@ onUnmounted(() => {
       top: 100%;
       left: 0;
       right: 0;
-      background: white;
-      border: 1px solid #e2e2e2;
-      border-radius: 8px;
+      background: #f6f8fa;
+      border: 1.2px solid #c2c9d6;
+      border-radius: 10px;
       margin-top: 4px;
       max-height: 200px;
       overflow-y: auto;
       z-index: 1000;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 12px rgba(0,60,120,0.10);
 
       .suggestion-item {
-        padding: 8px 16px;
+        padding: 10px 18px;
         cursor: pointer;
-        transition: background-color 0.2s;
-
+        transition: background-color 0.18s;
+        color: #234e70;
+        font-weight: 500;
+        font-size: 1rem;
+        border-radius: 8px;
         &:hover, &.selected {
-          background-color: #f5f5f5;
+          background: #e8eef3;
         }
       }
     }
@@ -239,6 +252,21 @@ onUnmounted(() => {
 
   a.router-link-active {
     font-weight: bold;
+    color: #2a5298;
+    text-decoration: underline;
+  }
+  .menus a, .menus .router-link-active {
+    color: #234e70;
+    font-weight: 500;
+    font-size: 1.01rem;
+    border-radius: 8px;
+    padding: 6px 14px;
+    transition: background 0.18s, color 0.18s;
+    text-decoration: none;
+  }
+  .menus a:hover {
+    background: #e8eef3;
+    color: #2a5298;
   }
 }
 
