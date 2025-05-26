@@ -237,22 +237,23 @@ const toggleLike = async () => {
       margin-bottom: 18px;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      gap: 8px;
+      gap: 12px;
       background: #f6f8fa;
       border-radius: 12px;
-      padding: 12px 20px;
+      padding: 16px 20px;
       box-shadow: 0 1px 4px rgba(0,60,120,0.04);
     }
+
     .article__header-row {
       display: flex;
       flex-direction: row;
       align-items: center;
       gap: 18px;
+      width: 100%;
     }
 
     &__header-title {
-      margin: 12px 0;
+      margin: 0;
       font-size: 1.6rem;
       font-weight: bold;
       color: #1c1c1e;
@@ -260,16 +261,19 @@ const toggleLike = async () => {
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       font-family: 'Montserrat', 'Pretendard', 'Noto Sans KR', 'Inter', Arial, sans-serif;
+      flex: 1;
     }
 
     &__header-writer {
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      text-align: right;
-      gap: 2px;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
       color: #3a4a5a;
-      font-size: 0.98rem;
+      font-size: 0.95rem;
+      padding: 4px 0;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      margin-top: 4px;
     }
 
     &__content {

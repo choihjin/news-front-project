@@ -62,100 +62,136 @@ const login = async () => {
 };
 </script>
   
-  <style scoped>
-  .auth {
-    text-align: center;
-    margin-top: 100px;
-  }
+<style scoped>
+.auth {
+  text-align: center;
+  margin-top: 80px;
+  padding: 0 24px;
   
   .auth__title {
-    font-size: 32px;
+    font-size: 1.8rem;
     font-weight: 800;
+    color: #234e70;
+    letter-spacing: 1.5px;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Montserrat', 'Pretendard', 'Noto Sans KR', 'Inter', Arial, sans-serif;
+    text-transform: uppercase;
+    margin-bottom: 8px;
   }
   
   .auth__subtitle {
-    font-size: 14px;
-    color: #777;
-    margin-top: 5px;
+    font-size: 0.95rem;
+    color: #4a5568;
+    margin-bottom: 40px;
   }
   
   .auth__card {
-    margin: 40px auto;
-    padding: 40px;
-    width: 400px;
-    background: white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    padding: 32px;
+    width: 100%;
+    max-width: 400px;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,60,120,0.08);
+    border: 1px solid #e2e8f0;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  
-  .auth__card h2 {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-  
-  .auth__card p {
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 20px;
-  }
-  
-  .auth__card input {
-    width: 100%;
-    margin-bottom: 12px;
-    padding: 12px 15px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    outline: none;
-  }
-  
-  .auth__card input:focus {
-    border-color: #000;
-  }
-  
-  .auth__card button {
-    width: 100%;
-    padding: 14px;
-    background: black;
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 15px;
-    transition: background 0.3s;
-    margin-bottom: 20px;
-  }
-  
-  .auth__card button:hover {
-    background: #333;
-  }
-  
-  .auth__card router-link {
-    color: #000;
-    font-weight: bold;
-    text-decoration: underline;
+    
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #234e70;
+      margin-bottom: 8px;
+    }
+    
+    p {
+      font-size: 0.95rem;
+      color: #4a5568;
+      margin-bottom: 24px;
+    }
+    
+    input {
+      width: 100%;
+      margin-bottom: 16px;
+      padding: 10px 16px;
+      font-size: 0.95rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      background: #f8fafc;
+      color: #234e70;
+      transition: all 0.2s ease;
+      
+      &:focus {
+        outline: none;
+        border-color: #2a5298;
+        background: #fff;
+        box-shadow: 0 2px 4px rgba(42,82,152,0.1);
+      }
+    }
+    
+    button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+      color: white;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      margin-bottom: 20px;
+      
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(42,82,152,0.15);
+      }
+    }
+    
+    a {
+      color: #2a5298;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.2s;
+      
+      &:hover {
+        color: #1e3c72;
+        text-decoration: underline;
+      }
+    }
   }
   
   footer {
-    margin-top: 60px;
-    font-size: 13px;
-    color: #888;
+    margin-top: 48px;
+    font-size: 0.85rem;
+    color: #718096;
+    
+    span {
+      margin: 0 12px;
+      cursor: pointer;
+      transition: color 0.2s;
+      
+      &:hover {
+        color: #2a5298;
+      }
+    }
+    
+    p {
+      margin-top: 12px;
+    }
   }
-  
-  footer span {
-    margin: 0 12px;
-  }
-  
-  footer p {
-    margin-top: 10px;
-  }
+}
 
-  .register-link {
-    margin-top: 15px;
+@media (max-width: 480px) {
+  .auth {
+    margin-top: 40px;
+    
+    .auth__card {
+      padding: 24px;
+    }
   }
-  </style>
+}
+</style>
