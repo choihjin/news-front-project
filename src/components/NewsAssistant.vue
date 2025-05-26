@@ -142,7 +142,7 @@ const sendMessage = async () => {
   position: absolute;
   bottom: 80px;
   right: 0;
-  width: 380px;
+  width: 480px;
   max-width: 95vw;
   animation: slideUp 0.3s;
 }
@@ -176,7 +176,7 @@ const sendMessage = async () => {
 }
 
 .messages {
-  height: 340px;
+  height: 440px;
   overflow-y: auto;
   margin-bottom: 18px;
   padding: 12px;
