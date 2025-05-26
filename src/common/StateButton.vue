@@ -2,7 +2,13 @@
 import { computed, useAttrs, defineProps } from "vue";
 import { useRouter } from "vue-router";
 
-const props = defineProps();
+const props = defineProps({
+  type: { type: String, default: "button" },
+  size: { type: String, default: "md" },
+  isActive: { type: Boolean, default: false },
+  to: { type: String, default: null },
+  class: { type: [String, Array, Object], default: "" },
+});
 const type = computed(() => props.type || "button");
 const size = computed(() => props.size || "md");
 const isActive = computed(() => props.isActive || false);
@@ -25,10 +31,10 @@ function handleClick() {
   <button
     :class="[
       'toggle-button',
-      props.class,
       buttonSizeClass,
       buttonTypeClass,
       { active: isActive },
+      props.class,  
     ]"
     v-bind="attrs"
     @click="handleClick"
