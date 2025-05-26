@@ -121,30 +121,30 @@ function goToLast() {
 .pagination__button {
   font-size: 14px;
   padding: 8px 12px;
-  border: 1px solid #e0e0e0;
-  background-color: #fff;
-  color: #333;
-  border-radius: 8px;
+  border: 1.2px solid #c2c9d6;
+  background: #f6f8fa;
+  color: #234e70;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.18s cubic-bezier(0.4,0,0.2,1);
   font-weight: 500;
   min-width: 36px;
   height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px rgba(0,60,120,0.04);
 }
 
 .pagination__button:hover:not(:disabled) {
-  background-color: #333;
-  color: #fff;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: #dbe3ec;
+  color: #234e70;
+  transform: translateY(-1.5px) scale(1.03);
+  box-shadow: 0 2px 8px rgba(0,60,120,0.10);
 }
 
 .pagination__button:disabled {
-  background-color: #f8f8f8;
+  background: #f3f6fa;
   border-color: #e8e8e8;
   color: #bbb;
   cursor: not-allowed;
@@ -159,32 +159,33 @@ function goToLast() {
 .pagination__number {
   min-width: 36px;
   height: 36px;
-  border: 1px solid #e0e0e0;
-  background-color: #fff;
-  color: #333;
-  border-radius: 8px;
+  border: 1.2px solid #c2c9d6;
+  background: #f6f8fa;
+  color: #234e70;
+  border-radius: 10px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 14px;
   font-weight: 500;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.18s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: 0 1px 2px rgba(0,60,120,0.04);
 }
 
 .pagination__number--active {
-  background-color: #333;
+  background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
   color: #fff;
-  border-color: #333;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-color: #234e70;
+  transform: scale(1.08);
+  box-shadow: 0 4px 16px rgba(35, 78, 112, 0.13);
 }
 
 .pagination__number:hover:not(.pagination__number--active) {
-  background-color: #f8f8f8;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: #dbe3ec;
+  color: #234e70;
+  transform: scale(1.03);
+  box-shadow: 0 2px 8px rgba(0,60,120,0.10);
 }
 
 @media (max-width: 480px) {

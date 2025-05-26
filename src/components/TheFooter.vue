@@ -12,18 +12,32 @@
 .footer {
   margin: 100px 0 50px 0;
   text-align: center;
-  font-size: 0.8rem;
-  color: #666;
+  font-size: 1rem;
+  color: var(--c-primary-dark);
+  background: linear-gradient(90deg, #f6f8fa 60%, #e3f0fa 100%);
+  border-radius: 24px;
+  box-shadow: 0 2px 12px rgba(34,113,177,0.06);
+  padding: 40px 0 24px 0;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-  a {
-    color: #666;
-    text-decoration: none;
-    margin: 0 10px;
-  }
+.footer a {
+  color: var(--c-primary);
+  text-decoration: none;
+  margin: 0 18px;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+.footer a:hover {
+  color: var(--c-primary-dark);
+  text-decoration: underline;
+}
 
-  p {
-    margin-top: 5px;
-    color: #aaa;
-  }
+.footer p {
+  margin-top: 12px;
+  color: #7a8ca3;
+  font-size: 1rem;
 }
 </style>

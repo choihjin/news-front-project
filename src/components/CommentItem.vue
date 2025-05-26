@@ -126,21 +126,35 @@ const handleDelete = () => {
 
 <style scoped lang="scss">
 .comment-item {
-  padding: 1.5rem;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
+  padding: 24px;
+  border: 1px solid rgba(34, 113, 177, 0.12);
+  border-radius: 16px;
+  margin-bottom: 24px;
   background-color: white;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 12px rgba(34, 113, 177, 0.04);
   
   &:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 24px rgba(34, 113, 177, 0.08);
+    border-color: rgba(34, 113, 177, 0.2);
+    transform: translateY(-2px);
   }
 
   &.reply {
-    margin-left: 3rem;
-    background-color: #f8f9fa;
-    border-left: 3px solid #0066cc;
+    margin-left: 48px;
+    background-color: rgba(34, 113, 177, 0.03);
+    border-left: 4px solid var(--c-primary);
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -24px;
+      top: 50%;
+      width: 24px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--c-primary) 0%, rgba(34, 113, 177, 0.2) 100%);
+    }
   }
 }
 
@@ -148,36 +162,41 @@ const handleDelete = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 0.8rem;
+  gap: 16px;
+  margin-bottom: 16px;
 
   .username {
-    font-weight: 600;
-    color: #1a1a1a;
-    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--c-primary-dark);
+    font-size: 1.1rem;
+    background: linear-gradient(135deg, var(--c-primary-dark) 0%, var(--c-primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .header-right {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 16px;
   }
 
   .date {
-    color: #888;
-    font-size: 0.85rem;
+    color: var(--c-gray-500);
+    font-size: 0.9rem;
+    font-weight: 500;
   }
 }
 
 .comment-content {
-  color: #333;
-  line-height: 1.6;
+  color: var(--c-text);
+  line-height: 1.7;
   
   .content-text {
     p {
       margin: 0;
       white-space: pre-wrap;
       word-break: break-word;
+      font-size: 1.05rem;
     }
   }
 }
@@ -185,125 +204,129 @@ const handleDelete = () => {
 .comment-actions {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 1rem;
+  gap: 12px;
+  margin-top: 20px;
 }
 
 .owner-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .action-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.3rem;
-  border: 1px solid #ddd;
-  background-color: white;
-  border-radius: 4px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 12px;
+  background: rgba(34, 113, 177, 0.08);
+  color: var(--c-primary);
   cursor: pointer;
-  transition: all 0.2s ease;
-  
-  .icon {
-    font-size: 1rem;
-  }
-  
-  &:hover {
-    background-color: #f8f9fa;
-    border-color: #ccc;
-  }
-  
-  &.delete:hover {
-    background-color: #fff5f5;
-    border-color: #ff8787;
-    color: #e03131;
-  }
-}
+  transition: all 0.3s ease;
+  padding: 0;
 
-.edit-form {
-  margin-top: 1rem;
-  
-  textarea {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    resize: vertical;
-    min-height: 80px;
-    margin-bottom: 0.75rem;
-    transition: border-color 0.2s ease;
-    
-    &:focus {
-      outline: none;
-      border-color: #333;
-      box-shadow: 0 0 0 2px #444;
-    }
+  &:hover {
+    background: rgba(34, 113, 177, 0.12);
+    transform: translateY(-2px);
   }
-  
-  .button-group {
-    display: flex;
-    gap: 0.75rem;
-    justify-content: flex-end;
-    
-    button {
-      padding: 0.5rem 1rem;
-      border: 1px solid transparent;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: all 0.2s ease;
-      
-      &.save-button {
-        background-color: #333;
-        color: white;
-        
-        &:hover:not(:disabled) {
-          background-color: #222;
-        }
-        
-        &:disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
-        }
-      }
-      
-      &.cancel-button {
-        background-color: white;
-        border-color: #ddd;
-        color: #666;
-        
-        &:hover {
-          background-color: #f8f9fa;
-          border-color: #ccc;
-          color: #333;
-        }
-      }
-    }
+
+  &.edit:hover {
+    background: rgba(34, 113, 177, 0.15);
+  }
+
+  &.delete:hover {
+    background: rgba(220, 53, 69, 0.15);
+    color: #dc3545;
+  }
+
+  .icon {
+    font-size: 1.1rem;
   }
 }
 
 .reply-button {
-  padding: 0.4rem 0;
-  border: none;
-  background-color: transparent;
-  color: #333;
+  padding: 8px 16px;
+  border: 1.5px solid rgba(34, 113, 177, 0.2);
+  border-radius: 12px;
+  background: white;
+  color: var(--c-primary);
+  font-weight: 600;
   cursor: pointer;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  align-self: flex-start;
-  
-  &::before {
-    content: "↪";
-    font-size: 1.1rem;
-  }
-  
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+
   &:hover {
-    color: #222;
-    text-decoration: underline;
+    background: rgba(34, 113, 177, 0.08);
+    border-color: var(--c-primary);
+    transform: translateY(-2px);
+  }
+}
+
+.edit-form {
+  textarea {
+    width: 100%;
+    padding: 16px;
+    border: 2px solid rgba(34, 113, 177, 0.15);
+    border-radius: 12px;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    resize: vertical;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+
+    &:focus {
+      outline: none;
+      border-color: var(--c-primary);
+      box-shadow: 0 4px 12px rgba(34, 113, 177, 0.1);
+      background: white;
+    }
+  }
+
+  .button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .save-button, .cancel-button {
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+  }
+
+  .save-button {
+    background: linear-gradient(135deg, var(--c-primary-dark) 0%, var(--c-primary) 100%);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 12px rgba(34, 113, 177, 0.2);
+
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(34, 113, 177, 0.25);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+  }
+
+  .cancel-button {
+    background: white;
+    color: var(--c-primary);
+    border: 1.5px solid rgba(34, 113, 177, 0.2);
+
+    &:hover {
+      background: rgba(34, 113, 177, 0.08);
+      border-color: var(--c-primary);
+      transform: translateY(-2px);
+    }
   }
 }
 </style> 

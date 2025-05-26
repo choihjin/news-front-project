@@ -1,20 +1,34 @@
 <template>
   <div class="comment-form" :class="{ 'reply-form': isReply }">
-    <textarea
-      v-model="content"
-      :placeholder="placeholder"
-      rows="3"
-      @keydown.ctrl.enter="handleSubmit"
-    ></textarea>
-    <div class="form-actions">
-      <span class="hint">Ctrl + Enter로 작성</span>
-      <div class="button-group">
-        <button v-if="isReply" @click="$emit('cancel')" class="cancel-button">
-          취소
-        </button>
-        <button @click="handleSubmit" :disabled="!content.trim()">
-          작성하기
-        </button>
+    <div class="form-container">
+      <textarea
+        v-model="content"
+        :placeholder="placeholder"
+        rows="3"
+        @keydown.ctrl.enter="handleSubmit"
+        class="comment-textarea"
+      ></textarea>
+      <div class="form-actions">
+        <span class="hint">
+          <span class="keyboard-shortcut">Ctrl</span> + 
+          <span class="keyboard-shortcut">Enter</span>로 작성
+        </span>
+        <div class="button-group">
+          <button 
+            v-if="isReply" 
+            @click="$emit('cancel')" 
+            class="cancel-button"
+          >
+            취소
+          </button>
+          <button 
+            @click="handleSubmit" 
+            :disabled="!content.trim()"
+            class="submit-button"
+          >
+            작성하기
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -56,25 +70,60 @@ const handleSubmit = () => {
 
 <style scoped lang="scss">
 .comment-form {
-  margin-bottom: 2rem;
+  margin-bottom: 32px;
   
   &.reply-form {
-    margin-left: 2rem;
-    margin-bottom: 1rem;
+    margin-left: 48px;
+    margin-bottom: 24px;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -24px;
+      top: 50%;
+      width: 24px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--c-primary) 0%, rgba(34, 113, 177, 0.2) 100%);
+    }
+  }
+
+  .form-container {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(34, 113, 177, 0.06);
+    border: 1px solid rgba(34, 113, 177, 0.1);
+    padding: 20px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 8px 24px rgba(34, 113, 177, 0.08);
+      border-color: rgba(34, 113, 177, 0.2);
+    }
   }
   
-  textarea {
+  .comment-textarea {
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    padding: 16px;
+    border: 2px solid rgba(34, 113, 177, 0.15);
+    border-radius: 12px;
     resize: vertical;
-    margin-bottom: 0.5rem;
+    margin-bottom: 16px;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--c-text);
+    background: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
     
     &:focus {
       outline: none;
-      border-color: #333;
-      box-shadow: 0 0 0 2px #444;
+      border-color: var(--c-primary);
+      box-shadow: 0 4px 12px rgba(34, 113, 177, 0.1);
+      background: white;
+    }
+
+    &::placeholder {
+      color: rgba(34, 113, 177, 0.5);
     }
   }
 }
@@ -85,44 +134,61 @@ const handleSubmit = () => {
   align-items: center;
   
   .hint {
-    color: #666;
-    font-size: 0.9rem;
+    color: var(--c-gray-600);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    .keyboard-shortcut {
+      background: rgba(34, 113, 177, 0.08);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--c-primary);
+      border: 1px solid rgba(34, 113, 177, 0.15);
+    }
   }
   
   .button-group {
     display: flex;
-    gap: 0.5rem;
+    gap: 12px;
     
     button {
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 4px;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
       cursor: pointer;
+      transition: all 0.3s ease;
       
       &:disabled {
-        opacity: 0.5;
+        opacity: 0.6;
         cursor: not-allowed;
+        transform: none;
       }
       
       &.cancel-button {
-        background-color: #f0f0f0;
+        background: white;
+        color: var(--c-primary);
+        border: 1.5px solid rgba(34, 113, 177, 0.2);
         
         &:hover {
-          background-color: #e0e0e0;
+          background: rgba(34, 113, 177, 0.08);
+          border-color: var(--c-primary);
+          transform: translateY(-2px);
         }
       }
       
-      &:not(.cancel-button) {
-        background-color: #333;
-        color: #fff;
+      &.submit-button {
+        background: linear-gradient(135deg, var(--c-primary-dark) 0%, var(--c-primary) 100%);
+        color: white;
+        border: none;
+        box-shadow: 0 4px 12px rgba(34, 113, 177, 0.2);
         
         &:hover:not(:disabled) {
-          background-color: #222;
-        }
-        &:focus {
-          outline: none;
-          background-color: #222;
-          box-shadow: 0 0 0 2px #444;
+          transform: translateY(2px);
         }
       }
     }

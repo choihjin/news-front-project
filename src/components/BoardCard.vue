@@ -12,13 +12,21 @@ const date = computed(() => formatDate(props.data.write_date));
 <template>
   <div class="card">
     <div class="card__header">
-      <StateButton type="state" size="sm" disabled>{{
-        props.data.category
-      }}</StateButton>
-      <span class="card__header-item">{{ props.data.writer }}</span>
-      <span class="card__header-item">{{ date }}</span>
+      <StateButton type="state" size="sm" disabled class="category-tag">
+        {{ props.data.category }}
+      </StateButton>
+      <div class="meta-info">
+        <span class="writer">
+          <span class="icon">👤</span>
+          {{ props.data.writer }}
+        </span>
+        <span class="date">
+          <span class="icon">📅</span>
+          {{ date }}
+        </span>
+      </div>
     </div>
-    <RouterLink :to="{ name: 'boardDetail', params: { id: props.data.id } }">
+    <RouterLink :to="{ name: 'boardDetail', params: { id: props.data.id } }" class="content-link">
       <h2 class="title">{{ props.data.title }}</h2>
       <p class="description">{{ props.data.content }}</p>
     </RouterLink>
@@ -28,6 +36,7 @@ const date = computed(() => formatDate(props.data.write_date));
         :key="index"
         type="tag"
         size="sm"
+        class="tag-button"
       >
         #{{ tag }}
       </StateButton>
@@ -38,49 +47,120 @@ const date = computed(() => formatDate(props.data.write_date));
 <style scoped lang="scss">
 .card {
   background-color: white;
-  width: 80%;
-  padding: 20px;
-  margin-bottom: 10px;
+  width: 100%;
+  max-width: 800px;
+  padding: 24px;
+  margin-bottom: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(34, 113, 177, 0.06);
+  border: 1px solid rgba(34, 113, 177, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(34, 113, 177, 0.1);
+    border-color: var(--c-primary);
+  }
 
   &__header {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 0.9rem;
-    color: #888;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
 
-    &-item {
-      font-weight: normal;
+    .category-tag {
+      background: rgba(34, 113, 177, 0.08) !important;
+      color: var(--c-primary) !important;
+      border: 1.5px solid rgba(34, 113, 177, 0.15) !important;
+      font-weight: 600 !important;
+      padding: 6px 12px !important;
+      border-radius: 999px !important;
+      font-size: 0.9rem !important;
+    }
+
+    .meta-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: var(--c-gray-600);
+      font-size: 0.95rem;
+
+      .writer, .date {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        .icon {
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+
+  .content-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: all 0.3s ease;
+
+    &:hover {
+      .title {
+        color: var(--c-primary);
+      }
     }
   }
 
   .title {
-    margin: 12px 0;
-    font-size: 22px;
-    font-weight: bold;
-    color: #1c1c1e;
+    margin: 16px 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--c-text);
+    line-height: 1.4;
+    transition: color 0.3s ease;
+    background: linear-gradient(135deg, var(--c-primary-dark) 0%, var(--c-primary) 50%, var(--c-primary-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .description {
-    font-size: 1rem;
-    width: 90%;
+    font-size: 1.05rem;
+    width: 95%;
     color: var(--c-gray-600);
-    margin: 15px 0;
+    margin: 16px 0;
     display: -webkit-box;
-    -webkit-line-clamp: 1;
-    line-clamp: 1;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    line-height: 1.3;
+    line-height: 1.6;
   }
 
   .tags {
     display: flex;
-    gap: 8px;
+    gap: 12px;
     flex-wrap: wrap;
-    padding-bottom: 40px;
-    border-bottom: 1px solid #e7e6e6;
+    padding: 16px 0;
+    border-top: 1px solid rgba(34, 113, 177, 0.1);
+    margin-top: 16px;
+
+    .tag-button {
+      background: rgba(34, 113, 177, 0.06) !important;
+      color: var(--c-primary) !important;
+      border: 1.5px solid rgba(34, 113, 177, 0.1) !important;
+      font-weight: 500 !important;
+      padding: 6px 16px !important;
+      border-radius: 999px !important;
+      font-size: 0.9rem !important;
+      transition: all 0.3s ease !important;
+
+      &:hover {
+        background: rgba(34, 113, 177, 0.1) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 8px rgba(34, 113, 177, 0.1) !important;
+      }
+    }
   }
 }
 </style>

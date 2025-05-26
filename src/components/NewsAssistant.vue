@@ -116,38 +116,47 @@ const sendMessage = async () => {
 <style scoped>
 .news-assistant {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 24px;
+  right: 24px;
   z-index: 1000;
 }
 
 .assistant-toggle {
-  background: #333;
-  color: white;
+  background: linear-gradient(135deg, var(--c-primary-dark), var(--c-primary));
+  color: #fff;
   border: none;
-  padding: 14px 24px;
-  border-radius: 30px;
+  padding: 18px 32px;
+  border-radius: 999px;
   cursor: pointer;
-  font-weight: 500;
-  font-size: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-}
-
-.assistant-toggle:hover {
-  background: #444;
-  transform: translateY(-2px);
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 16px rgba(34,113,177,0.18);
+  transition: all 0.3s;
+  &:hover {
+    background: linear-gradient(135deg, var(--c-primary), var(--c-primary-light));
+    transform: scale(1.04) translateY(-2px);
+  }
 }
 
 .chat-container {
   position: absolute;
   bottom: 80px;
   right: 0;
-  width: 450px;
+  width: 380px;
+  max-width: 95vw;
+  animation: slideUp 0.3s;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px);}
+  to { opacity: 1; transform: translateY(0);}
 }
 
 .chat-box {
-  padding: 25px !important;
+  padding: 28px !important;
+  background: linear-gradient(135deg, #f8fafc 60%, #e3f0fa 100%);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(34,113,177,0.10);
 }
 
 .chat-header {
@@ -167,69 +176,64 @@ const sendMessage = async () => {
 }
 
 .messages {
-  height: 400px;
+  height: 340px;
   overflow-y: auto;
-  margin-bottom: 20px;
-  padding: 15px;
-  background: #f8f8f8;
-  border-radius: 12px;
+  margin-bottom: 18px;
+  padding: 12px;
+  background: #f4f8fb;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .message {
-  margin-bottom: 15px;
   padding: 12px 18px;
   border-radius: 18px;
   max-width: 85%;
   word-break: break-word;
-  font-size: 15px;
-  line-height: 1.5;
-}
-
-.message.bot {
-  background: #e9ecef;
-  margin-right: auto;
-  border-bottom-left-radius: 5px;
-}
-
-.message.user {
-  background: #333;
-  color: white;
-  margin-left: auto;
-  border-bottom-right-radius: 5px;
+  font-size: 1rem;
+  line-height: 1.6;
+  box-shadow: 0 2px 8px rgba(34,113,177,0.04);
+  &.bot {
+    background: #e9ecef;
+    color: var(--c-primary-dark);
+    align-self: flex-start;
+    border-bottom-left-radius: 5px;
+  }
+  &.user {
+    background: linear-gradient(135deg, var(--c-primary), var(--c-primary-light));
+    color: #fff;
+    align-self: flex-end;
+    border-bottom-right-radius: 5px;
+  }
 }
 
 .input-area {
   display: flex;
-  gap: 12px;
-}
-
-.input-area input {
-  flex: 1;
-  padding: 12px 18px;
-  border: 1px solid #ddd;
-  border-radius: 25px;
-  outline: none;
-  font-size: 15px;
-}
-
-.input-area input:focus {
-  border-color: #333;
-}
-
-.input-area button {
-  padding: 12px 24px;
-  background: #333;
-  color: white;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: background 0.3s;
-  font-size: 15px;
-  font-weight: 500;
-}
-
-.input-area button:hover {
-  background: #444;
+  gap: 8px;
+  input {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 2px solid rgba(34,113,177,0.12);
+    font-size: 1rem;
+    transition: all 0.2s;
+    &:focus {
+      border-color: var(--c-primary);
+      background: #fff;
+    }
+  }
+  button {
+    padding: 0 18px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--c-primary-dark), var(--c-primary));
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    transition: all 0.2s;
+    &:hover { background: var(--c-primary); }
+  }
 }
 
 .loading-dots {
